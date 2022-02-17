@@ -1,5 +1,5 @@
-import logo from "./logo.svg";
 import "./App.css";
+import Map from "./components/Map/Map";
 
 function App() {
   return (
@@ -7,7 +7,9 @@ function App() {
       <nav className="App-nav">NAV</nav>
       <header className="App-header">HEADER</header>
       <div className="App-wrapper">
-        <section className="Map">MAP</section>
+        <section className="Map-container">
+          <Map />
+        </section>
         <aside className="App-details">DETAILS</aside>
       </div>
       <footer className="App-footer">FOOTER</footer>
