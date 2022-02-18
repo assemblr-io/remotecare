@@ -15,7 +15,6 @@ function App() {
         </section>
         <aside className="App-details">DETAILS</aside>
       </div>
-      <footer className="App-footer">FOOTER</footer>
     </div>
   );
 }

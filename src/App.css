@@ -36,7 +36,7 @@
 .App-wrapper {
   display: grid;
   width: 100vw;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 50px);
   grid-template-columns: 3fr 1fr;
 }
 
