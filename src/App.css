@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: transparent;
 }
 
 .App-logo {
@@ -20,7 +21,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  background-color: var(--main-bg-color);
+  background-color: transparent;
 }
 
 .App-nav {
@@ -35,7 +36,7 @@
 .App-wrapper {
   display: grid;
   width: 100vw;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 100px);
   grid-template-columns: 3fr 1fr;
 }
 
