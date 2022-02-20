@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -23,11 +23,17 @@ const labelTheme = createTheme({
 });
 
 export default function RangeSlider(props) {
-  const [value, setValue] = React.useState([20, 37]);
+  const [value, setValue] = useState([props.ageMin, props.ageMax]);
+  const [finalRange, setFinalRange] = useState([props.ageMin, props.ageMax]);
   const tag = props.tag;
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const handleRange = (event, data) => {
+    props.onSetAgeRange(data);
+  };
+
   const customWidth = props.width;
 
   return (
@@ -43,6 +49,7 @@ export default function RangeSlider(props) {
           getAriaLabel={() => tag}
           value={value}
           onChange={handleChange}
+          onChangeCommitted={handleRange}
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
         />

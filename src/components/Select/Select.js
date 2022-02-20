@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -20,19 +20,22 @@ const MenuProps = {
 };
 
 export default function SelectCheckBox(props) {
-  const [personName, setPersonName] = React.useState([]);
-  const options = props.options;
+  const [options, setOptions] = useState([]);
+  const initOptions = props.options;
   const tag = props.tag;
   const customWidth = props.width;
+
+  const handleCheck = (event, data) => {
+    props.onCheckedChange(data);
+  };
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    const checkedOptions = typeof value === "string" ? value.split(",") : value;
+    props.onCheckedChange(checkedOptions);
+    setOptions(checkedOptions);
   };
 
   return (
@@ -44,16 +47,16 @@ export default function SelectCheckBox(props) {
         labelId="demo-multiple-checkbox-label"
         id="demo-multiple-checkbox"
         multiple
-        value={personName}
+        value={options}
         onChange={handleChange}
         input={<OutlinedInput label={tag} />}
         renderValue={(selected) => selected.join(", ")}
         MenuProps={MenuProps}
         sx={{ color: "#fff", margin: "solid 1px #fff" }}
       >
-        {options.map((name) => (
+        {initOptions.map((name) => (
           <MenuItem key={name} value={name}>
-            <Checkbox checked={personName.indexOf(name) > -1} />
+            <Checkbox checked={options.indexOf(name) > -1} />
             <ListItemText primary={name} />
           </MenuItem>
         ))}
