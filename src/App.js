@@ -7,6 +7,7 @@ import { AssignmentInd } from "@mui/icons-material";
 export default function App() {
   const [age, setAgeRange] = useState({ ageMin: 0, ageMax: 115 });
   const [diseases, setDiseases] = useState([]);
+  const [heatmap, setHeatmap] = useState(false);
   const triggerMarkers = useRef(null);
 
   const setNewAgeRange = (data) => {
@@ -18,6 +19,14 @@ export default function App() {
     setDiseases(data);
   };
 
+  const setHeatmapStatus = (offOn) => {
+    setHeatmap(offOn);
+  };
+
+  useEffect(() => {
+    triggerMarkers.current(heatmap);
+  });
+
   useEffect(() => {
     triggerMarkers.current(diseases);
   });
@@ -28,8 +37,8 @@ export default function App() {
       <div className="App-wrapper">
         <section className="Map-container">
           {/* <DenseAppBar /> */}
-          <SimpleGrow onSetAgeRange={setNewAgeRange} ageRange={age} onSetDiseases={setCheckedDiseases} position="relative" />
-          <Map ageRange={age} diseases={diseases} trigger={triggerMarkers} />
+          <SimpleGrow onSetAgeRange={setNewAgeRange} ageRange={age} onSetDiseases={setCheckedDiseases} onShowHeatmap={setHeatmapStatus} position="relative" />
+          <Map ageRange={age} diseases={diseases} heatmap={heatmap} trigger={triggerMarkers} />
         </section>
         <aside className="App-details">DETAILS</aside>
       </div>

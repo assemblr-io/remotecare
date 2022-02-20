@@ -28,8 +28,12 @@ export default function SimpleGrow(props) {
     props.onSetDiseases(values);
   };
 
+  const handleToggle = (offOn) => {
+    props.onShowHeatmap(offOn);
+  };
+
   return (
-    <Box position="absolute" top="10px" width={"100%"} sx={{ height: 180, textAlign: "left", padding: "0 0 0 10px", zIndex: "1000" }}>
+    <Box position="absolute" top="10px" width={"100%"} sx={{ height: 100, textAlign: "left", padding: "0 0 0 10px", zIndex: "1000" }}>
       <FormControlLabel control={<Switch checked={checked} onChange={handleChange} />} label="Show Filters" />
       <Box sx={{ display: "flex" }}>
         <Grow in={checked}>
@@ -48,7 +52,7 @@ export default function SimpleGrow(props) {
                   />
                   <Select width="25%" options={["Endocrinology", "Cardiology", "Nephrology", "Physician", "Orthopaedics"]} tag="Specialty" />
                   <Range ageMin={ageRng.ageMin} ageMax={ageRng.ageMax} width="25%" tag="Age" onSetAgeRange={handleRangeChange} />
-                  <IosSwitch width="15%" tag="Show Heatmap" />
+                  <IosSwitch width="15%" tag="Show Heatmap" onToggle={handleToggle} />
                 </Toolbar>
               </AppBar>
             </Box>

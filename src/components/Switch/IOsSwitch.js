@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
@@ -52,14 +52,24 @@ const IOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVis
 }));
 
 export default function IosSwitch(props) {
+  const [checked, setChecked] = useState(false);
+  useEffect(() => {
+    props.onToggle(checked);
+  });
+
   const tag = props.tag;
   const customWidth = props.width;
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+
   return (
     <Box width={customWidth} display="flex" flexDirection={"column"} alignItems="center">
       <Typography id="age-label" gutterBottom>
         Show Heatmap
       </Typography>
-      <IOSSwitch sx={{ m: 1 }} defaultChecked />
+      <IOSSwitch sx={{ m: 1 }} checked={checked} onChange={handleChange} />
     </Box>
   );
 }

@@ -33,7 +33,6 @@ async function getPatientMarkers(query) {
   let latSW = Number(query.latSW);
   let lngSW = Number(query.lngSW);
   let diseases = query.diseases.split(",");
-  console.log(query.diseases.length);
   let conditions =
     query.diseases.length != 0
       ? diseases.map((disease) => {
@@ -49,7 +48,7 @@ async function getPatientMarkers(query) {
       { "latlng.lat": { $gt: latSW } },
       { "latlng.lng": { $lt: lngNE } },
       { "latlng.lng": { $gt: lngSW } },
-      conditions.length == 0 ? {} : { $or: [{ $and: conditions }] },
+      conditions.length == 0 ? {} : { $or: conditions },
     ],
   }).exec();
 }
