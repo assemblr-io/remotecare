@@ -8,6 +8,7 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 export default function Map(mapprops) {
   const [markers, setMarkers] = useState([]);
+  const [patients, setPatients] = useState([])
   const [open, setOpen] = useState({});
   const [mapBounds, setMapBounds] = useState({});
   const [markerIco, setMarkerIco] = useState(ptIcon);
@@ -18,6 +19,10 @@ export default function Map(mapprops) {
   useEffect(() => {
     mapprops.trigger.current = drawMarkers;
   });
+
+
+    
+
 
   const handleTooltipClose = () => {
     setOpen({});
@@ -30,11 +35,11 @@ export default function Map(mapprops) {
   };
 
   const Marker = (props) => {
-    const { key, index, lat, lng, name, age, conditions } = props;
+    const { key, index, lat, lng, name, age, conditions, id } = props;
 
     return (
       <>
-        <ClickAwayListener onClickAway={handleTooltipClose}>
+        <ClickAwayListener onClickAway={handleTooltipClose} key={key}>
           <div>
             <Tooltip
               PopperProps={{
@@ -46,7 +51,7 @@ export default function Map(mapprops) {
               disableHoverListener
               disableTouchListener
               title={
-                <div style={{ width: "100px" }}>
+                <div style={{ width: "100px" }} id={id}>
                   <h4>{name}</h4>
                   <p>{age}</p>
                 </div>
@@ -91,7 +96,8 @@ export default function Map(mapprops) {
       `http://localhost:2020/api/patient/markers?ageMin=${min}&ageMax=${max}&latNE=${bounds.lattop}&lngNE=${bounds.lngtop}&latSW=${bounds.latbottom}&lngSW=${bounds.lngbottom}${conds}`
     )
       .then((res) => res.json())
-      .then((res) => setMarkers(res));
+      .then((res) => {setMarkers(res); return res})
+      .then((res)=> mapprops.pt(res))
   };
 
   const doHeatMap = mapprops.heatmap;
@@ -124,6 +130,7 @@ export default function Map(mapprops) {
                 name={marker.fullname}
                 age={marker.age}
                 conditions={marker.conditions}
+                id={marker._id}
               />
             )
           )
