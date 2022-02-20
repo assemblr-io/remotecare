@@ -9,26 +9,27 @@ import middlewareWrapper from "cors";
 
 export default function Map(mapprops) {
   const [markers, setMarkers] = useState([]);
-  const [ageRange, setAgeRange] = useState([0,115])
-  const [conditions, setConditions] = useState([])
-  const [patients, setPatients] = useState([])
+  const [ageRange, setAgeRange] = useState([0, 115]);
+  const [conditions, setConditions] = useState([]);
+  const [patients, setPatients] = useState([]);
   const [open, setOpen] = useState({});
   const [mapBounds, setMapBounds] = useState({});
   const [markerIco, setMarkerIco] = useState(ptIcon);
   const [weight, setWeight] = useState(3);
   const [options, setOptions] = useState({ radius: 40, opacity: 0.65 });
   const data = [];
-  let workingMap ;
-
+  let workingMap;
 
   const handleTooltipClose = () => {
     setOpen({});
+    mapprops.ptTooltip({ id: "", key: false });
   };
 
-  const handleTooltipOpen = (key) => {
+  const handleTooltipOpen = (key, id) => {
     const current = {};
     current[key] = true;
     setOpen(current);
+    mapprops.ptTooltip({ id: id, key: true });
   };
 
   const Marker = (props) => {
@@ -56,7 +57,7 @@ export default function Map(mapprops) {
               arrow
               placement="top"
             >
-              <img onClick={() => handleTooltipOpen(index)} src={markerIco}></img>
+              <img onClick={() => handleTooltipOpen(index, id)} src={markerIco}></img>
             </Tooltip>
           </div>
         </ClickAwayListener>
@@ -65,9 +66,8 @@ export default function Map(mapprops) {
   };
 
   const handleBoundsChange = (ages, dis = []) => {
-
-    setAgeRange(ages)
-    setConditions(dis)
+    setAgeRange(ages);
+    setConditions(dis);
     let corners = {
       lattop: workingMap.marginBounds.ne.lat,
       lngtop: workingMap.marginBounds.ne.lng,
@@ -80,16 +80,19 @@ export default function Map(mapprops) {
     setOptions({ radius: rad, opacity: 0.7 });
     setMarkerIco(zoom > 11 ? ptIcon : zoom > 8 ? ptIconSmall : ptIconTiny);
 
-    const min = ages[0]== undefined ? 0 : ages[0];
-    const max = ages[1]== undefined ? 115 : ages[1];
+    const min = ages[0] == undefined ? 0 : ages[0];
+    const max = ages[1] == undefined ? 115 : ages[1];
     const conds = dis.length != 0 ? `&diseases=${dis.join(",")}` : "&diseases=";
 
     return fetch(
       `http://localhost:2020/api/patient/markers?ageMin=${min}&ageMax=${max}&latNE=${corners.lattop}&lngNE=${corners.lngtop}&latSW=${corners.latbottom}&lngSW=${corners.lngbottom}${conds}`
     )
       .then((res) => res.json())
-      .then((res) => {setMarkers(res); return res})
-      .then((res)=> mapprops.pt(res))
+      .then((res) => {
+        setMarkers(res);
+        return res;
+      })
+      .then((res) => mapprops.pt(res));
   };
 
   const doHeatMap = mapprops.heatmap;
@@ -97,7 +100,6 @@ export default function Map(mapprops) {
     positions: doHeatMap ? data : [],
     options: options,
   };
-
 
   return (
     <div style={{ height: "95vh" }}>
@@ -108,9 +110,16 @@ export default function Map(mapprops) {
         }}
         defaultCenter={{ lat: -33.32789335612147, lng: 115.65370583665717 }}
         defaultZoom={14}
-        onChange={(e) => {workingMap = e; handleBoundsChange(ageRange, conditions); mapprops.onDiseases.current = handleBoundsChange}}
+        onChange={(e) => {
+          workingMap = e;
+          handleBoundsChange(ageRange, conditions);
+          mapprops.onDiseases.current = handleBoundsChange;
+        }}
         heatmap={heatmapData}
-        onLoad={(e) => {workingMap = e; mapprops.onDiseases.current = handleBoundsChange}}
+        onLoad={(e) => {
+          workingMap = e;
+          mapprops.onDiseases.current = handleBoundsChange;
+        }}
       >
         {markers.map(
           (marker, index) => (
