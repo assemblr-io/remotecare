@@ -35,6 +35,7 @@ export default function SelectCheckBox(props) {
     } = event;
     const checkedOptions = typeof value === "string" ? value.split(",") : value;
     props.onCheckedChange(checkedOptions);
+
     setOptions(checkedOptions);
   };
 

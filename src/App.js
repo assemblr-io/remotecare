@@ -6,20 +6,26 @@ import { AssignmentInd } from "@mui/icons-material";
 import Accordion from "./components/Accordion/Accordion";
 
 export default function App() {
-  const [age, setAgeRange] = useState({ ageMin: 0, ageMax: 115 });
+  const [age, setAgeRange] = useState([0,115]);
   const [diseases, setDiseases] = useState([]);
   const [heatmap, setHeatmap] = useState(false);
   const [patients, setPatients] = useState([]);
-  const triggerMarkers = useRef(null);
+  const triggerFilters = useRef(null);
 
   const setNewAgeRange = (data) => {
     setAgeRange(data);
-    triggerMarkers.current(age);
+    
   };
 
   const setCheckedDiseases = (data) => {
     setDiseases(data);
   };
+
+  useEffect(() => {
+    if (triggerFilters.current) {
+      triggerFilters.current(age, diseases)
+    }
+  },[age, diseases]);
 
   const onPatientFetch = (patients) =>{
     setPatients(patients)
@@ -29,12 +35,6 @@ export default function App() {
     setHeatmap(offOn);
   };
 
-  // useEffect(() => {
-  //   triggerMarkers.current(heatmap);
-  // });
-
-
-
   return (
     <div className="App">
       <nav className="App-nav">NAV</nav>
@@ -42,7 +42,7 @@ export default function App() {
         <section className="Map-container">
           {/* <DenseAppBar /> */}
           <SimpleGrow onSetAgeRange={setNewAgeRange} ageRange={age} onSetDiseases={setCheckedDiseases} onShowHeatmap={setHeatmapStatus} position="relative" />
-          <Map ageRange={age} diseases={diseases} heatmap={heatmap} trigger={triggerMarkers} pt={onPatientFetch}/>
+          <Map heatmap={heatmap} onDiseases={triggerFilters} onAge={triggerFilters} pt={onPatientFetch}/>
         </section>
         <aside className="App-details"><Accordion pts={patients}/></aside>
       </div>

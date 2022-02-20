@@ -15,7 +15,7 @@ import IosSwitch from "../Switch/IOsSwitch";
 export default function SimpleGrow(props) {
   const [checked, setChecked] = useState(false);
   const customWidth = props.width;
-  const [ageRng, setAgeRng] = useState({ ageMin: props.ageRange.ageMin, ageMax: props.ageRange.ageMax });
+  const [ageRng, setAgeRng] = useState([...props.ageRange]);
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
@@ -26,6 +26,7 @@ export default function SimpleGrow(props) {
 
   const handleSelections = (values) => {
     props.onSetDiseases(values);
+    
   };
 
   const handleToggle = (offOn) => {
@@ -51,7 +52,7 @@ export default function SimpleGrow(props) {
                     tag="Disease"
                   />
                   <Select width="25%" options={["Endocrinology", "Cardiology", "Nephrology", "Physician", "Orthopaedics"]} tag="Specialty" />
-                  <Range ageMin={ageRng.ageMin} ageMax={ageRng.ageMax} width="25%" tag="Age" onSetAgeRange={handleRangeChange} />
+                  <Range ageMin={ageRng[0]} ageMax={ageRng[1]} width="25%" tag="Age" onSetAgeRange={handleRangeChange} />
                   <IosSwitch width="15%" tag="Show Heatmap" onToggle={handleToggle} />
                 </Toolbar>
               </AppBar>

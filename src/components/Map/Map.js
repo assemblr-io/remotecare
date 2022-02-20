@@ -5,9 +5,12 @@ import ptIconSmall from "./pt_circle_tiny.png";
 import ptIconTiny from "./pt_marker.png";
 import Tooltip from "@mui/material/Tooltip";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
+import middlewareWrapper from "cors";
 
 export default function Map(mapprops) {
   const [markers, setMarkers] = useState([]);
+  const [ageRange, setAgeRange] = useState([0,115])
+  const [conditions, setConditions] = useState([])
   const [patients, setPatients] = useState([])
   const [open, setOpen] = useState({});
   const [mapBounds, setMapBounds] = useState({});
@@ -15,13 +18,7 @@ export default function Map(mapprops) {
   const [weight, setWeight] = useState(3);
   const [options, setOptions] = useState({ radius: 40, opacity: 0.65 });
   const data = [];
-
-  useEffect(() => {
-    mapprops.trigger.current = drawMarkers;
-  });
-
-
-    
+  let workingMap ;
 
 
   const handleTooltipClose = () => {
@@ -67,33 +64,28 @@ export default function Map(mapprops) {
     );
   };
 
-  const handleBoundsChange = (map) => {
+  const handleBoundsChange = (ages, dis = []) => {
+
+    setAgeRange(ages)
+    setConditions(dis)
     let corners = {
-      lattop: map.marginBounds.ne.lat,
-      lngtop: map.marginBounds.ne.lng,
-      latbottom: map.marginBounds.sw.lat,
-      lngbottom: map.marginBounds.sw.lng,
+      lattop: workingMap.marginBounds.ne.lat,
+      lngtop: workingMap.marginBounds.ne.lng,
+      latbottom: workingMap.marginBounds.sw.lat,
+      lngbottom: workingMap.marginBounds.sw.lng,
     };
-    let zoom = map.zoom;
+    let zoom = workingMap.zoom;
     let rad = zoom ** 1.4;
-    console.log(zoom + " " + rad);
+
     setOptions({ radius: rad, opacity: 0.7 });
-    setMarkerIco(map.zoom > 11 ? ptIcon : map.zoom > 8 ? ptIconSmall : ptIconTiny);
-    setMapBounds(corners);
-    fetchMarkers(corners);
-  };
+    setMarkerIco(zoom > 11 ? ptIcon : zoom > 8 ? ptIconSmall : ptIconTiny);
 
-  const drawMarkers = () => {
-    fetchMarkers(mapBounds);
-  };
-
-  const fetchMarkers = (bounds) => {
-    const min = mapprops.ageRange[0] == undefined ? 0 : mapprops.ageRange[0];
-    const max = mapprops.ageRange[1] == undefined ? 115 : mapprops.ageRange[1];
-    const conds = mapprops.diseases.length != 0 ? `&diseases=${mapprops.diseases.join(",")}` : "&diseases=";
+    const min = ages[0]== undefined ? 0 : ages[0];
+    const max = ages[1]== undefined ? 115 : ages[1];
+    const conds = dis.length != 0 ? `&diseases=${dis.join(",")}` : "&diseases=";
 
     return fetch(
-      `http://localhost:2020/api/patient/markers?ageMin=${min}&ageMax=${max}&latNE=${bounds.lattop}&lngNE=${bounds.lngtop}&latSW=${bounds.latbottom}&lngSW=${bounds.lngbottom}${conds}`
+      `http://localhost:2020/api/patient/markers?ageMin=${min}&ageMax=${max}&latNE=${corners.lattop}&lngNE=${corners.lngtop}&latSW=${corners.latbottom}&lngSW=${corners.lngbottom}${conds}`
     )
       .then((res) => res.json())
       .then((res) => {setMarkers(res); return res})
@@ -106,6 +98,7 @@ export default function Map(mapprops) {
     options: options,
   };
 
+
   return (
     <div style={{ height: "95vh" }}>
       <GoogleMapReact
@@ -115,8 +108,9 @@ export default function Map(mapprops) {
         }}
         defaultCenter={{ lat: -33.32789335612147, lng: 115.65370583665717 }}
         defaultZoom={14}
-        onChange={(e) => handleBoundsChange(e)}
+        onChange={(e) => {workingMap = e; handleBoundsChange(ageRange, conditions); mapprops.onDiseases.current = handleBoundsChange}}
         heatmap={heatmapData}
+        onLoad={(e) => {workingMap = e; mapprops.onDiseases.current = handleBoundsChange}}
       >
         {markers.map(
           (marker, index) => (

@@ -1,7 +1,7 @@
 const patient = require("../models/patients");
 
 exports.get_visible_patients = async function (req, res) {
-  console.log(req.query);
+
   //pass in age, conditions, specialty, latlng
   const result = await patient.getPatientMarkers(req.query);
   if (result) res.send(result);
