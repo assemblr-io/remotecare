@@ -66,19 +66,19 @@ module.exports = {
 
 const testPatients = [
   {
-    fullname: "Dave Chandler",
-    age: 47,
-    latlng: { lat: -33.33366621996607, lng: 115.63606763087668 },
+    fullname: "Bradley Dawson",
+    age: 80,
+    latlng: { lat: -33.32896907410054, lng: 115.64462924197821 },
     conditions: [
       {
-        name: "Diabetes",
+        name: "Cancer",
       },
     ],
   },
   {
-    fullname: "Bob Chandler",
-    age: 74,
-    latlng: { lat: -33.33406958910041, lng: 115.63369655773926 },
+    fullname: "Andrew Sniewkiczk",
+    age: 60,
+    latlng: { lat: -33.328718074441376, lng: 115.64565921017756 },
     conditions: [
       {
         name: "Diabetes",
@@ -89,9 +89,9 @@ const testPatients = [
     ],
   },
   {
-    fullname: "Lauren Madoobie",
+    fullname: "Amanda Jarvis",
     age: 30,
-    latlng: { lat: -33.362022994475154, lng: 115.63237691065389 },
+    latlng: { lat: -33.328718074441376, lng: 115.64662480536447 },
     conditions: [
       {
         name: "Cancer",
@@ -99,277 +99,15 @@ const testPatients = [
     ],
   },
   {
-    fullname: "Andrew Stepson",
-    age: 6,
-    latlng: { lat: -33.39991021231199, lng: 115.61657333506865 },
+    fullname: "Delece Kasukis",
+    age: 36,
+    latlng: { lat: -33.328789788703496, lng: 115.64754748520973 },
     conditions: [],
   },
   {
-    fullname: "Wendy Pursue",
-    age: 44,
-    latlng: { lat: -33.39985647056572, lng: 115.61859035612575 },
-    conditions: [
-      {
-        name: "Cancer",
-      },
-    ],
-  },
-  {
-    fullname: "Hillary Standwich",
-    age: 52,
-    latlng: { lat: -33.40171949846183, lng: 115.61566138400165 },
-    conditions: [
-      {
-        name: "Diabetes",
-      },
-    ],
-  },
-  {
-    fullname: "Fred Hollows",
-    age: 61,
-    latlng: { lat: -33.4025614306157, lng: 115.61951303591388 },
-    conditions: [
-      {
-        name: "COPD",
-      },
-      {
-        name: "Diabetes",
-      },
-    ],
-  },
-  {
-    fullname: "Drake Mancell",
-    age: 40,
-    latlng: { lat: -33.40165680105662, lng: 115.60962104939105 },
-    conditions: [
-      {
-        name: "Rheumatic Heart Disease",
-      },
-    ],
-  },
-  {
-    fullname: "Nancy Barlow",
-    age: 84,
-    latlng: { lat: -33.39730369936098, lng: 115.60692811149008 },
-    conditions: [
-      {
-        name: "Joints",
-      },
-      {
-        name: "Diabetes",
-      },
-      {
-        name: "COPD",
-      },
-      {
-        name: "Rheumatic Heart Disease",
-      },
-    ],
-  },
-  {
-    fullname: "Frankland Buddy",
-    age: 2,
-    latlng: { lat: -33.34731698349092, lng: 115.63144350234799 },
-    conditions: [
-      {
-        name: "Joints",
-      },
-    ],
-  },
-  {
-    fullname: "Paddy Linch",
-    age: 28,
-    latlng: { lat: -33.34541693980345, lng: 115.62994146539057 },
-    conditions: [
-      {
-        name: "Cancer",
-      },
-    ],
-  },
-  {
-    fullname: "Paul Mutch",
-    age: 51,
-    latlng: { lat: -33.3462056422165, lng: 115.62599325395966 },
-    conditions: [
-      {
-        name: "Joints",
-      },
-    ],
-  },
-  {
-    fullname: "Betty White",
-    age: 95,
-    latlng: { lat: -33.632925262068476, lng: 115.38781309250193 },
-    conditions: [
-      {
-        name: "Joints",
-      },
-      {
-        name: "Diabetes",
-      },
-      {
-        name: "Cancer",
-      },
-      {
-        name: "Rheumatic Heart Disease",
-      },
-      {
-        name: "COPD",
-      },
-    ],
-  },
-  {
-    fullname: "Tom Cruise",
-    age: 55,
-    latlng: { lat: -33.63660552255094, lng: 115.38785600784357 },
-    conditions: [
-      {
-        name: "Joints",
-      },
-      {
-        name: "Diabetes",
-      },
-    ],
-  },
-  {
-    fullname: "Peter Fitzo",
-    age: 29,
-    latlng: { lat: -33.63703428053393, lng: 115.37854337870762 },
-    conditions: [
-      {
-        name: "Cancer",
-      },
-      {
-        name: "COPD",
-      },
-    ],
-  },
-  {
-    fullname: "Paddy O'leary",
-    age: 12,
-    latlng: { lat: -33.63038829191869, lng: 115.39390707101487 },
-    conditions: [
-      {
-        name: "Joints",
-      },
-    ],
-  },
-  {
-    fullname: "Brad Cummins",
-    age: 88,
-    latlng: { lat: -33.63732011800332, lng: 115.37772798721645 },
-    conditions: [
-      {
-        name: "Joints",
-      },
-    ],
-  },
-  {
-    fullname: "Peter Watts",
-    age: 78,
-    latlng: { lat: -33.6490743620745, lng: 115.35438204136413 },
-    conditions: [
-      {
-        name: "Cancer",
-      },
-    ],
-  },
-  {
-    fullname: "Amelia Peters",
-    age: 5,
-    latlng: { lat: -33.64346539410728, lng: 115.36927366491331 },
-    conditions: [
-      {
-        name: "Diabetes",
-      },
-    ],
-  },
-  {
-    fullname: "Beck Smith",
-    age: 20,
-    latlng: { lat: -33.644751559181046, lng: 115.36236429490923 },
-    conditions: [
-      {
-        name: "Joints",
-      },
-      {
-        name: "Diabetes",
-      },
-    ],
-  },
-  {
-    fullname: "DJ Shadow",
-    age: 49,
-    latlng: { lat: -33.64510882384713, lng: 115.35343790384803 },
-    conditions: [
-      {
-        name: "COPD",
-      },
-      {
-        name: "Cancer",
-      },
-    ],
-  },
-  {
-    fullname: "Getcho Mans",
-    age: 27,
-    latlng: { lat: -33.66511327911019, lng: 115.31365537908707 },
-    conditions: [
-      {
-        name: "Rheumatic Heart Disease",
-      },
-      {
-        name: "Diabetes",
-      },
-    ],
-  },
-  {
-    fullname: "Killa Mike",
-    age: 40,
-    latlng: { lat: -33.65759495667251, lng: 115.25761394430542 },
-    conditions: [
-      {
-        name: "COPD",
-      },
-    ],
-  },
-  {
-    fullname: "Paul McGillan",
+    fullname: "Alison Baker",
     age: 42,
-    latlng: { lat: -33.673096565286734, lng: 115.24220733645132 },
-    conditions: [
-      {
-        name: "Joints",
-      },
-    ],
-  },
-  {
-    fullname: "Andy McGillan",
-    age: 12,
-    latlng: { lat: -33.673096565286734, lng: 115.24220733645132 },
-    conditions: [
-      {
-        name: "Diabetes",
-      },
-    ],
-  },
-  {
-    fullname: "Peter Pauls",
-    age: 4,
-    latlng: { lat: -33.61096174021325, lng: 115.10726913054827 },
-    conditions: [
-      {
-        name: "COPD",
-      },
-      {
-        name: "Joints",
-      },
-    ],
-  },
-  {
-    fullname: "Michael Priest",
-    age: 47,
-    latlng: { lat: -33.61551854075463, lng: 115.09965165740714 },
+    latlng: { lat: -33.328933217050654, lng: 115.65046572844128 },
     conditions: [
       {
         name: "Cancer",
@@ -377,68 +115,81 @@ const testPatients = [
     ],
   },
   {
-    fullname: "Anders Wince",
-    age: 28,
-    latlng: { lat: -33.6143927653805, lng: 115.10001643781106 },
-    conditions: [
-      {
-        name: "Diabetes",
-      },
-    ],
-  },
-  {
-    fullname: "John McGrath",
-    age: 48,
-    latlng: { lat: -33.61478589495983, lng: 115.10235532393045 },
-    conditions: [
-      {
-        name: "Rheumatic Heart Disease",
-      },
-    ],
-  },
-  {
-    fullname: "MCA Grand Master",
+    fullname: "Fred Astaire",
     age: 52,
-    latlng: { lat: -33.62150455963913, lng: 115.11673196337998 },
+    latlng: { lat: -33.32907664516169, lng: 115.65364146372266 },
+    conditions: [
+      {
+        name: "Diabetes",
+      },
+    ],
+  },
+  {
+    fullname: "Margaret Hawkney",
+    age: 12,
+    latlng: { lat: -33.335871281361975, lng: 115.65276169921903 },
     conditions: [
       {
         name: "Cancer",
       },
       {
-        name: "COPD",
+        name: "Diabetes",
       },
     ],
   },
   {
-    fullname: "Happy Gilmore",
-    age: 50,
-    latlng: { lat: -33.59734351227538, lng: 115.09881480760471 },
+    fullname: "Denver Washington",
+    age: 40,
+    latlng: { lat: -33.33737714481684, lng: 115.65443539754301 },
     conditions: [
       {
-        name: "COPD",
+        name: "Rheumatic Heart Disease",
       },
     ],
   },
   {
-    fullname: "Mick Jaggs",
-    age: 68,
-    latlng: { lat: -33.59541319575852, lng: 115.08660539290804 },
+    fullname: "Stuart Booth",
+    age: 106,
+    latlng: { lat: -33.332572632349105, lng: 115.6583836089739 },
     conditions: [
+      {
+        name: "Joints",
+      },
+      {
+        name: "Diabetes",
+      },
       {
         name: "COPD",
       },
       {
         name: "Rheumatic Heart Disease",
       },
+    ],
+  },
+  {
+    fullname: "Giles Mandible",
+    age: 20,
+    latlng: { lat: -33.331945157799346, lng: 115.65988564593133 },
+    conditions: [
+      {
+        name: "Joints",
+      },
+    ],
+  },
+  {
+    fullname: "Wisby Griggins-Linch",
+    age: 28,
+    latlng: { lat: -33.347325945752814, lng: 115.64992928705526 },
+    conditions: [
       {
         name: "Cancer",
       },
     ],
   },
   {
-    fullname: "Freddy Mercury",
-    age: 85,
-    latlng: { lat: -33.57878923791636, lng: 115.080683075385 },
+    fullname: "Paul Merchant",
+    age: 51,
+    latlng: { lat: -33.34578440420649, lng: 115.65585160420162 },
     conditions: [
       {
         name: "Joints",
@@ -446,64 +197,9 @@ const testPatients = [
     ],
   },
   {
-    fullname: "Pink Frankles",
-    age: 94,
-    latlng: { lat: -33.56251968425904, lng: 115.06441815998883 },
-    conditions: [
-      {
-        name: "COPD",
-      },
-    ],
-  },
-  {
-    fullname: "Mandy Moore",
-    age: 101,
-    latlng: { lat: -33.55962302473741, lng: 115.05441888538664 },
-    conditions: [
-      {
-        name: "Cancer",
-      },
-      {
-        name: "Diabetes",
-      },
-      {
-        name: "COPD",
-      },
-      {
-        name: "Joints",
-      },
-    ],
-  },
-  {
-    fullname: "Eboneiser Max",
-    age: 61,
-    latlng: { lat: -33.55468775142845, lng: 115.06175740880711 },
-    conditions: [
-      {
-        name: "Joints",
-      },
-      {
-        name: "Diabetes",
-      },
-    ],
-  },
-  {
-    fullname: "Mal Painindaass",
-    age: 82,
-    latlng: { lat: -33.65023166177415, lng: 115.06167157798872 },
-    conditions: [
-      {
-        name: "Cancer",
-      },
-      {
-        name: "Joints",
-      },
-    ],
-  },
-  {
-    fullname: "Taj Burrows",
-    age: 99,
-    latlng: { lat: -33.6423719643593, lng: 115.02785428877615 },
+    fullname: "Mike White",
+    age: 95,
+    latlng: { lat: -33.35019385740161, lng: 115.65881276277482 },
     conditions: [
       {
         name: "Joints",
@@ -515,7 +211,115 @@ const testPatients = [
         name: "Cancer",
       },
       {
+        name: "Rheumatic Heart Disease",
+      },
+      {
         name: "COPD",
+      },
+    ],
+  },
+  {
+    fullname: "Tom Cranskty",
+    age: 55,
+    latlng: { lat: -33.3625964877, lng: 115.64821267365981 },
+    conditions: [
+      {
+        name: "Joints",
+      },
+      {
+        name: "Diabetes",
+      },
+    ],
+  },
+  {
+    fullname: "Billy Thekiddo",
+    age: 29,
+    latlng: { lat: -33.36456784121725, lng: 115.67473435479351 },
+    conditions: [
+      {
+        name: "Cancer",
+      },
+      {
+        name: "COPD",
+      },
+    ],
+  },
+  {
+    fullname: "Ellery Batho",
+    age: 12,
+    latlng: { lat: -33.33456259320273, lng: 115.68833851998484 },
+    conditions: [
+      {
+        name: "Joints",
+      },
+    ],
+  },
+  {
+    fullname: "Brad Cannaham",
+    age: 88,
+    latlng: { lat: -33.341876653145405, lng: 115.68215871078863 },
+    conditions: [
+      {
+        name: "Joints",
+      },
+    ],
+  },
+  {
+    fullname: "Worzel Gummage",
+    age: 78,
+    latlng: { lat: -33.359227161360984, lng: 115.72610402062833 },
+    conditions: [
+      {
+        name: "Cancer",
+      },
+    ],
+  },
+  {
+    fullname: "Tom Baker",
+    age: 5,
+    latlng: { lat: -33.31763751196873, lng: 115.70069813837725 },
+    conditions: [
+      {
+        name: "Diabetes",
+      },
+    ],
+  },
+  {
+    fullname: "Adam Coulson",
+    age: 20,
+    latlng: { lat: -33.31892852379637, lng: 115.69263005414885 },
+    conditions: [
+      {
+        name: "Joints",
+      },
+      {
+        name: "Diabetes",
+      },
+    ],
+  },
+  {
+    fullname: "Frederick Hewson",
+    age: 49,
+    latlng: { lat: -33.3147685283374, lng: 115.7022430906763 },
+    conditions: [
+      {
+        name: "COPD",
+      },
+      {
+        name: "Cancer",
+      },
+    ],
+  },
+  {
+    fullname: "Manou Reqoire",
+    age: 27,
+    latlng: { lat: -33.31319054709228, lng: 115.71975255006555 },
+    conditions: [
+      {
+        name: "Rheumatic Heart Disease",
+      },
+      {
+        name: "Diabetes",
       },
     ],
   },

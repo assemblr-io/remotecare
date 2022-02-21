@@ -1,7 +1,11 @@
 .mui-accordion h4 {
-    display: inline;
+  display: inline;
+}
+
+.mui-accordion {
+  margin: 10px;
 }
 
 .sub-header {
-    font-weight: 500;
+  font-weight: 500;
 }

@@ -4,13 +4,15 @@ import SimpleGrow from "./components/FormControl/FormControl";
 import { useState, useRef, useEffect } from "react";
 import { AssignmentInd } from "@mui/icons-material";
 import Accordion from "./components/Accordion/Accordion";
+import Search from "./components/Search/Search";
+import UserAvatar from "./components/Avatar/Avatar";
 
 export default function App() {
   const [age, setAgeRange] = useState([0, 115]);
   const [diseases, setDiseases] = useState([]);
   const [heatmap, setHeatmap] = useState(false);
   const [patients, setPatients] = useState([]);
-  const [tooltip, setTooltip] = useState({});
+  const [tooltip, setTooltip] = useState({ key: false });
   const triggerFilters = useRef(null);
   const triggerAccordion = useRef(null);
 
@@ -48,7 +50,11 @@ export default function App() {
 
   return (
     <div className="App">
-      <nav className="App-nav">NAV</nav>
+      <nav className="App-nav">
+        <img src="./images/logo.png" />
+
+        <UserAvatar />
+      </nav>
       <div className="App-wrapper">
         <section className="Map-container">
           {/* <DenseAppBar /> */}
@@ -56,7 +62,7 @@ export default function App() {
           <Map heatmap={heatmap} onDiseases={triggerFilters} onAge={triggerFilters} ptTooltip={onTooltip} pt={onPatientFetch} />
         </section>
         <aside className="App-details">
-          <Accordion pts={patients} onTooltip={triggerAccordion} />
+          <Accordion pts={patients} onTooltip={triggerAccordion} tooltip={tooltip} />
         </aside>
       </div>
     </div>

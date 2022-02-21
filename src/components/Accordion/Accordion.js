@@ -6,6 +6,7 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import "./Accordion.css";
+import Search from "../Search/Search";
 
 const Accordion = styled((props) => <MuiAccordion disableGutters elevation={5} square {...props} />)(({ theme }) => ({
   border: `1px solid ${theme.palette.divider}`,
@@ -38,6 +39,8 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export default function CustomizedAccordions(props) {
   const [expanded, setExpanded] = React.useState("panel1");
+  const [tools, setTools] = React.useState("panel1");
+
   useEffect(() => {
     props.onTooltip.current = handleTooltip;
     console.log("onload of Accordion");
@@ -48,15 +51,24 @@ export default function CustomizedAccordions(props) {
   };
 
   const handleTooltip = (tooltip) => {
-    setExpanded(tooltip.key ? tooltip.id : false);
+    setTools(tooltip.key ? tooltip.id : false);
   };
 
   return (
     <div className="mui-accordion">
+      <Search pts={props.pts} />
       {props.pts.map((patient) => (
-        <Accordion expanded={expanded === patient._id} onChange={handleChange(patient._id)} key={patient._id}>
+        <Accordion
+          expanded={expanded === patient._id || tools === patient._id}
+          onChange={handleChange(patient._id)}
+          key={patient._id}
+          data-name={patient.fullname}
+        >
           <AccordionSummary aria-controls={patient._id + "-content"} id={patient._id}>
-            <Typography>{patient.fullname}</Typography>
+            <Typography sx={{ width: "45%", flexShrink: 0, textAlign: "left" }}>{patient.fullname}</Typography>
+            <Typography sx={{ width: "55%", flexShrink: 0, textAlign: "right", color: "text.secondary" }}>
+              {Math.floor(Math.random() * patient.age * patient.conditions.length * 10)} Road km's
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>

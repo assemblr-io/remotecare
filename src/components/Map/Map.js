@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
-import ptIcon from "./pt_circle_small.png";
-import ptIconSmall from "./pt_circle_tiny.png";
+import ptIcon from "./ptOrg_L.png";
+import ptIconSmall from "./ptOrg_M.png";
 import ptIconTiny from "./pt_marker.png";
 import Tooltip from "@mui/material/Tooltip";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
@@ -17,6 +17,7 @@ export default function Map(mapprops) {
   const [markerIco, setMarkerIco] = useState(ptIcon);
   const [weight, setWeight] = useState(3);
   const [options, setOptions] = useState({ radius: 40, opacity: 0.65 });
+  const [zoomLvl, setZoom] = useState(14);
   const data = [];
   let workingMap;
 
@@ -57,7 +58,12 @@ export default function Map(mapprops) {
               arrow
               placement="top"
             >
-              <img onClick={() => handleTooltipOpen(index, id)} src={markerIco}></img>
+              <img
+                onClick={() => handleTooltipOpen(index, id)}
+                src={markerIco}
+                width={zoomLvl}
+                style={{ position: "absolute", transform: "translate(-48%,-58%)" }}
+              ></img>
             </Tooltip>
           </div>
         </ClickAwayListener>
@@ -74,6 +80,7 @@ export default function Map(mapprops) {
       latbottom: workingMap.marginBounds.sw.lat,
       lngbottom: workingMap.marginBounds.sw.lng,
     };
+    setZoom(workingMap.zoom);
     let zoom = workingMap.zoom;
     let rad = zoom ** 1.4;
 
