@@ -52,6 +52,10 @@ Launches the Node.js Express Server managing the API and server requests
 - should users manage/edit patients in the dashboard or assume it is done in the source clinical/administrative backend and rendered in real-time on the dashboard only?
 - Sort patient details by total road kms?
 
+## Ideas to consider
+
+- click a button to show clinics close to the patient offering the services their appointments need
+
 ## Bugs
 
 - logic error between clicking on a marker and opening accordion - marker click opens accordion; accordion click does not clear marker click due to state effect being triggered. it is a sequencing issue dues to poor logic!
