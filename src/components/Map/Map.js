@@ -82,7 +82,7 @@ export default function Map(mapprops) {
     };
     setZoom(workingMap.zoom);
     let zoom = workingMap.zoom;
-    let rad = zoom ** 1.4;
+    let rad = zoom ** 1.55;
 
     setOptions({ radius: rad, opacity: 0.7 });
     setMarkerIco(zoom > 11 ? ptIcon : zoom > 8 ? ptIconSmall : ptIconTiny);

@@ -7,8 +7,10 @@ import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import "./Select.css";
+import Chip from "@mui/material/Chip";
+import Box from "@mui/material/Box";
 
-const ITEM_HEIGHT = 5;
+const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 1;
 const MenuProps = {
   listprops: {
@@ -25,19 +27,24 @@ export default function SelectCheckBox(props) {
   const tag = props.tag;
   const customWidth = props.width;
 
-  const handleCheck = (event, data) => {
-    props.onCheckedChange(data);
-  };
-
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
     const checkedOptions = typeof value === "string" ? value.split(",") : value;
-    props.onCheckedChange(checkedOptions);
-
     setOptions(checkedOptions);
   };
+
+  const handleDelete = (e, value) => {
+    console.log(value);
+    setOptions(options.filter((option) => option != value));
+
+    // setOptions((current) => _without(current, value));
+  };
+
+  useEffect(() => {
+    props.onCheckedChange(options);
+  });
 
   return (
     <FormControl sx={{ m: 2, width: customWidth }}>
@@ -45,15 +52,30 @@ export default function SelectCheckBox(props) {
         {tag}
       </InputLabel>
       <Select
-        labelId="demo-multiple-checkbox-label"
-        id="demo-multiple-checkbox"
+        labelId="multiple-checkbox-label"
+        id="multiple-checkbox"
         multiple
         value={options}
         onChange={handleChange}
         input={<OutlinedInput label={tag} />}
-        renderValue={(selected) => selected.join(", ")}
+        renderValue={(selected) => (
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+            {selected.map((value) => (
+              <Chip
+                sx={{ backgroundColor: "#fff", color: "#333" }}
+                key={value}
+                label={value}
+                variant="filled"
+                onDelete={(e) => handleDelete(e, value)}
+                onMouseDown={(event) => {
+                  event.stopPropagation();
+                }}
+              />
+            ))}
+          </Box>
+        )}
+        // renderValue={(selected) => selected.join(", ")}
         MenuProps={MenuProps}
-        sx={{ color: "#fff", margin: "solid 1px #fff" }}
       >
         {initOptions.map((name) => (
           <MenuItem key={name} value={name}>

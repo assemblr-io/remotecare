@@ -2,3 +2,9 @@
   background-color: rgb(231, 15, 15);
   color: rgb(41, 6, 240);
 }
+
+#multiple-checkbox {
+  padding-top: 12.5px;
+  padding-bottom: 12.5px;
+  height: 30px;
+}
