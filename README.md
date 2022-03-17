@@ -1,6 +1,16 @@
 # Remote Care Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It is an interactive, SPA Dashboard that allows users to visualise the burden of patients currently under care.
+Remote care was developed over a 3 day sprint, taking data feeds from a Qld Health NoSQL backend. It is to be used by nurses providing services to remote based patients who are travelling for outpatient specialist appointments. Currently there is no way of visualising which patients are travelling the most, who is the most unwell, and the total burden of travel on remote based patients.
+
+This solution requirements included the need for an intuitive interface requiring a 5-minute stand-up to train, auth with BCrypt and salting. It could only read data.
+
+The product is a google map that drives the search - showing only those patients that live within the visible map area - showing a marker for each patient, and their details in an accordion on the right hand side. A heat map and selectors for disease and age are included that alter the search parameters dynamically, redrawing the return values in-DOM.
+
+A heat map is calculated based upon patient age and condition complexity. The weighting of heatmap gradient is only relative to those pateints visible within the viewport to ensure it shows the worst to best in condition relative to the search parameters.
+
+Travel distances in km's and hrs (road travel time) between the patients home address and the appointment address is shown next to the patients details and can be sorted from greatest to lowest.
+
+A single page application with now screen refresh or reload, resulting in the use of React for the UI.
 
 ## User Features
 
@@ -21,6 +31,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Utilising Material UI components
 - MongoDB NoSQL Atlas cluster with Kubernetes
 - Google Maps API
+- Google DistanceMatrixService implemented to calculate patietn distance between home and clinic address
 - Node.js and Express built API
 - Full Stack application utilising MVC structure.
 - markers size based upon zoom state
@@ -36,16 +47,16 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm run api test`
+### `npm run api`
 
-Launches the Node.js Express Server managing the API and server requests
+Launches the Node.js Express Server managing the API and server requests on PORT:2020
 
 ## Features to be implemented
 
-- wire up the total kilometers travelled (total) and per appointment using DistanceMatrix
+- have DistanceMatrixService only calculate the distance from home->clinic once per appt and store against patient appointment in mongoDB to cache and save $ on the service use - only re-check if either of the address fields change
 - Attach to the patient details both the appointment, total kms, and total in summary component
-- allow filtering by quartiles of total kms to be travelled by patients (so upper 25th quartile will show you the upper 25% of patients travelling the most)
-- patient name search filters DOM
+- allow filtering or sort ordering of the accordion by quartiles of total kms to be travelled by patients
+- implement the firebase auth login
 
 ## Features to be developed/refined (User Experience)
 
