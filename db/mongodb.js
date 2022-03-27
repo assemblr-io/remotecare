@@ -6,20 +6,34 @@ const ApiError = require;
 
 //mongoDB Class
 class MongoDB {
-  constructor() {
-    this.uri = `mongodb+srv://${process.env.REMOTEMONGO_UID}:${process.env.REMOTEMONGO_PWD}@carecluster.byivh.mongodb.net/carecluster?retryWrites=true&w=majority`;
+  constructor(env = "") {
+    (this.env = env),
+      (this.uri = `mongodb+srv://${process.env.REMOTEMONGO_UID}:${process.env.REMOTEMONGO_PWD}@carecluster.byivh.mongodb.net/${env}carecluster?retryWrites=true&w=majority`);
   }
   //connect to MongoDB Atlas Instance
   async connect() {
     try {
-      await mongoose.connect(this.uri, { useNewUrlParser: true, useUnifiedTopology: true }).then((MongooseNode) => {
-        const nativeConnection = MongooseNode.connections[0];
-        new Admin(nativeConnection.db).listDatabases((err, result) => {
-          console.log("Successfully Connected to MongoDB - carecluster");
-        });
-      });
+      const response = await mongoose.connect(this.uri, { useNewUrlParser: true, useUnifiedTopology: true });
+      if (response) return `Successfully Connected to MongoDB - ${this.env}carecluster`;
     } catch (err) {
-      return next(err);
+      return err;
+    }
+  }
+
+  async dropCollection(collection) {
+    return await mongoose.connection.db.dropCollection(collection);
+  }
+
+  mongoose_instance() {
+    return mongoose;
+  }
+
+  async close() {
+    try {
+      const response = await mongoose.connection.close();
+      if (response) return "Connection closed successfully";
+    } catch (err) {
+      return err;
     }
   }
 }

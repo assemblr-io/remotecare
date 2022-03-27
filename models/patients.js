@@ -2,20 +2,6 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const ptSchema = require("../db/schemas/patient.schema");
 
-//in case i need one!
-class Patient {
-  constructor() {
-    (this.fullname = String),
-      (this.email = String),
-      (this.age = Number),
-      (this.full_address = String),
-      (this.address_locality = String),
-      (this.latlng = { lat: Number, lng: Number }),
-      (this.conditions = Object),
-      (this.appointments = Object);
-  }
-}
-
 const Patients = mongoose.model("patients", ptSchema.PatientSchema);
 
 //get shallow patient details for markers
@@ -55,7 +41,7 @@ async function bulk_patient_load(testPatients) {
 }
 
 module.exports = {
-  Patient,
+  Patients,
   getPatientMarkers,
   bulk_patient_load,
 };
