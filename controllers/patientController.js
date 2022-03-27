@@ -9,21 +9,21 @@ exports.get_visible_patients = async function (req, res, next) {
       return next(ApiError.badRequest("query values are mal-formed"));
     }
     const result = await patient.getPatientMarkers(req.query);
-    res.send(result, 201);
+    res.status(201).send(result);
   } catch (error) {
     //add winston or other logger in here for prod
     return next(error);
   }
 };
 
-exports.bulk_pt_post = async function (req, res) {
+exports.bulk_pt_post = async function (req, res, next) {
   if (!req.body) {
     return next(ApiError.badRequest("body mal-formed, check your JSON"));
   }
 
   try {
     const result = await patient.bulk_patient_load(req.body);
-    res.send(result, 201);
+    res.status(201).send(result);
   } catch (error) {
     return next(error);
   }
