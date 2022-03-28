@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const ptSchema = require("../db/schemas/patient.schema");
+const ApiError = require("../errors/ApiError");
 
 const Patients = mongoose.model("patients", ptSchema.PatientSchema);
 
@@ -37,9 +38,14 @@ async function getPatientMarkers(query) {
 }
 
 async function bulk_patient_load(testPatients) {
-  const record_count = testPatients.length;
+  if (!testPatients) {
+    throw ApiError.badRequest("body mal-formed");
+  }
+
   try {
-    return (await Patients.insertMany(testPatients)) ? record_count : -1;
+    if (testPatients.length) {
+      return (await Patients.insertMany(testPatients)) ? testPatients.length : -1;
+    }
   } catch (err) {
     return err;
   }

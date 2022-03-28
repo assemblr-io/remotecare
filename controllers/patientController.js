@@ -18,7 +18,7 @@ exports.get_visible_patients = async function (req, res, next) {
 
 exports.bulk_pt_post = async function (req, res, next) {
   if (!req.body) {
-    return next(ApiError.badRequest("body mal-formed, check your JSON"));
+    return next(ApiError.badRequest("body mal-formed"));
   }
 
   try {

@@ -7,6 +7,7 @@ const request = require("supertest");
 const express = require("express");
 const router = require("../routes/api");
 const patient = require("../models/patients");
+const ApiError = require("../errors/ApiError");
 
 const app = new express();
 app.use("/", router);
@@ -69,7 +70,7 @@ describe("testing Express route handlers and patient model", () => {
     expect(res.statusCode).toBe(404);
   });
 
-  test("responds to GET patient markers for map /", async () => {
+  test("responds to GET patient markers for route /patient/markers", async () => {
     patient.getPatientMarkers = jest.fn().mockReturnValue(test_patients.data);
 
     const res = await request(app).get("/patient/markers").query("ageMin=0&ageMax=115&latNE=1&latSW=2&lngNE=3&lngSW=4");
@@ -78,11 +79,20 @@ describe("testing Express route handlers and patient model", () => {
     expect(res.text).toBe(JSON.stringify(test_patients.data));
   });
 
-  test("responds to POST /patient/bulk with and without data", async () => {
+  test("responds to POST /patient/bulk WITH req", async () => {
     const starting_count = test_patients.data.length;
     Patients.insertMany = jest.fn().mockReturnValue(test_patients.data.length);
 
     expect(await bulk_patient_load(test_patients.data)).toBe(starting_count);
-    await expect(bulk_patient_load()).rejects.toThrowError();
+  });
+
+  test("responds to POST /patient/bulk WITHOUT req", async () => {
+    const starting_count = test_patients.data.length;
+    Patients.insertMany = jest.fn().mockReturnValue(test_patients.data.length);
+    try {
+      await bulk_patient_load();
+    } catch (err) {
+      expect(err.code).toBe(400);
+    }
   });
 });
