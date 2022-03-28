@@ -1,8 +1,6 @@
-const { after } = require("underscore");
 const MongoDB = require("../db/mongodb");
 const mongo = new MongoDB("test_");
 const mongoose = require("mongoose");
-const patient_schema = require("../db/schemas/patient.schema");
 const test_patients = require("../db/patient_test_data");
 const { Patients, bulk_patient_load } = require("../models/patients");
 const request = require("supertest");
