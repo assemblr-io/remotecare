@@ -4,7 +4,7 @@ const patient = require("../controllers/patientController");
 const google = require("../controllers/googleController");
 
 router.get("/", function (req, res, next) {
-  res.send("convert this to a render api descriptions library for developers");
+  res.status(200).send("not implemented");
 });
 
 router.get("/patient/markers", patient.get_visible_patients);

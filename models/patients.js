@@ -37,7 +37,10 @@ async function getPatientMarkers(query) {
 }
 
 async function bulk_patient_load(testPatients) {
-  return await Patients.insertMany(testPatients);
+  const record_count = testPatients.data.length;
+  try{
+    return await Patients.insertMany(testPatients) ? record_count : -1
+  } catch (err){return err}
 }
 
 module.exports = {

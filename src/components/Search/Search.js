@@ -12,6 +12,7 @@ export default function Search(appProps) {
       <Autocomplete
         id="patient-names"
         options={appProps.pts}
+        autoComplete={false}
         getOptionLabel={(option) => option.fullname}
         renderInput={(params) => <TextField {...params} label="Patient Search" margin="normal" />}
         renderOption={(props, option, { inputValue }) => {

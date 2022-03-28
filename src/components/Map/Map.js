@@ -5,7 +5,7 @@ import ptIconSmall from "./ptOrg_M.png";
 import ptIconTiny from "./pt_marker.png";
 import Tooltip from "@mui/material/Tooltip";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import middlewareWrapper from "cors";
+import DistanceService from "./utils.js"
 
 export default function Map(mapprops) {
   const [markers, setMarkers] = useState([]);
@@ -20,6 +20,7 @@ export default function Map(mapprops) {
   const [zoomLvl, setZoom] = useState(14);
   const data = [];
   let workingMap;
+  let googleMaps;
 
   const handleTooltipClose = () => {
     setOpen({});
@@ -87,10 +88,25 @@ export default function Map(mapprops) {
     setOptions({ radius: rad, opacity: 0.7 });
     setMarkerIco(zoom > 11 ? ptIcon : zoom > 8 ? ptIconSmall : ptIconTiny);
 
-    const min = ages[0] == undefined ? 0 : ages[0];
-    const max = ages[1] == undefined ? 115 : ages[1];
-    const conds = dis.length != 0 ? `&diseases=${dis.join(",")}` : "&diseases=";
+    const min = ages[0] === undefined ? 0 : ages[0];
+    const max = ages[1] === undefined ? 115 : ages[1];
+    const conds = dis.length !== 0 ? `&diseases=${dis.join(",")}` : "&diseases=";
 
+    let request =  {
+      origins: ["20 Gibson St, South Bunbury WA 6230", "54 Stockley Rd, Bunbury WA 6230"],
+      destinations: [{
+        lat: -33.35661033966308,
+        lng:  115.64092024094921
+    }, {
+        lat: -32.066713137449916, 
+        lng: 115.84644894861471
+    }],
+      travelMode: 'DRIVING',
+    };
+
+
+ 
+    console.log(workingMap)
     return fetch(
       `http://localhost:2020/api/patient/markers?ageMin=${min}&ageMax=${max}&latNE=${corners.lattop}&lngNE=${corners.lngtop}&latSW=${corners.latbottom}&lngSW=${corners.lngbottom}${conds}`
     )
@@ -100,7 +116,10 @@ export default function Map(mapprops) {
         return res;
       })
       .then((res) => mapprops.pt(res));
+
+      
   };
+  
 
   const doHeatMap = mapprops.heatmap;
   const heatmapData = {
@@ -108,13 +127,21 @@ export default function Map(mapprops) {
     options: options,
   };
 
+  function handleApiLoaded(map, maps){
+    googleMaps = new maps.DistanceMatrixService();
+  }
+
+
   return (
     <div style={{ height: "95vh" }}>
       <GoogleMapReact
         bootstrapURLKeys={{
           key: "AIzaSyBimsO-5HTfzRdKwgBin2iLWaHX5ubokuk",
           libraries: ["visualization"],
+          
         }}
+        yesIWantToUseGoogleMapApiInternals
+        onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
         defaultCenter={{ lat: -33.32789335612147, lng: 115.65370583665717 }}
         defaultZoom={14}
         onChange={(e) => {
@@ -128,6 +155,7 @@ export default function Map(mapprops) {
           mapprops.onDiseases.current = handleBoundsChange;
         }}
       >
+       
         {markers.map(
           (marker, index) => (
             data.push({ lat: marker.latlng.lat, lng: marker.latlng.lng, weight: Math.log(marker.age) * marker.conditions.length }),

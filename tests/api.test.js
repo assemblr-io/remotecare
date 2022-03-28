@@ -1,17 +1,21 @@
 const { after } = require("underscore");
 const MongoDB = require("../db/mongodb");
 const mongo = new MongoDB("test_");
-const patients_model = require("../models/patients");
-const the_goose = mongo.mongoose_instance();
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
 const patient_schema = require("../db/schemas/patient.schema");
 const test_patients = require("../db/patient_test_data");
 const Patients = mongoose.model("patients", patient_schema.PatientSchema);
+const request = require('supertest');
+const express = require('express');
+const router = require('../routes/api');
+
+const app = new express();
+app.use('/', router);
+let collection_to_test ;
 
 describe("testing MongoDB connection", () => {
   let db;
-  const collection_to_test = "patients";
+  collection_to_test = "patients";
 
   beforeAll(async () => {
     db = await mongo.connect();
@@ -53,14 +57,28 @@ describe("testing MongoDB connection", () => {
 });
 
 describe("testing Express route handlers", () => {
-  beforeAll(async () => {
-    db = await mongo.connect();
+
+  test('responds to GET /', async () => {
+    const res = await request(app).get('/');
+    expect(res.header['content-type']).toBe('text/html; charset=utf-8');
+    expect(res.statusCode).toBe(200);
+    expect(res.text).toEqual('not implemented');
+  });
+  
+  test('responds to /missing_route', async () => {
+    const res = await request(app).get('/missing_route');
+    expect(res.header['content-type']).toBe('text/html; charset=utf-8');
+    expect(res.statusCode).toBe(404);
   });
 
-  afterAll(async () => {
-    await mongo.dropCollection(collection_to_test);
-    await mongo.close();
-  });
+  // test('responds to POST /patient/bulk', async () => {
+  //   const starting_count = test_patients.data.length
+
+  //   const res = await request(app).post('/patient/bulk').send(test_patients.data)
+  //   expect(res.header['content-type']).toBe('text/html; charset=utf-8');
+  //   expect(res.statusCode).toBe(200);
+  // });
+
 });
 
 // describe("testing Controllers", () => {});
