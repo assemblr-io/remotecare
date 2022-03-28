@@ -4,14 +4,15 @@ const mongo = new MongoDB("test_");
 const mongoose = require("mongoose");
 const patient_schema = require("../db/schemas/patient.schema");
 const test_patients = require("../db/patient_test_data");
-const Patients = mongoose.model("patients", patient_schema.PatientSchema);
-const request = require('supertest');
-const express = require('express');
-const router = require('../routes/api');
+const { Patients, bulk_patient_load } = require("../models/patients");
+const request = require("supertest");
+const express = require("express");
+const router = require("../routes/api");
+const patient = require("../models/patients");
 
 const app = new express();
-app.use('/', router);
-let collection_to_test ;
+app.use("/", router);
+let collection_to_test;
 
 describe("testing MongoDB connection", () => {
   let db;
@@ -56,31 +57,34 @@ describe("testing MongoDB connection", () => {
   });
 });
 
-describe("testing Express route handlers", () => {
-
-  test('responds to GET /', async () => {
-    const res = await request(app).get('/');
-    expect(res.header['content-type']).toBe('text/html; charset=utf-8');
+describe("testing Express route handlers and patient model", () => {
+  test("responds to GET /", async () => {
+    const res = await request(app).get("/");
+    expect(res.header["content-type"]).toBe("text/html; charset=utf-8");
     expect(res.statusCode).toBe(200);
-    expect(res.text).toEqual('not implemented');
+    expect(res.text).toEqual("not implemented");
   });
-  
-  test('responds to /missing_route', async () => {
-    const res = await request(app).get('/missing_route');
-    expect(res.header['content-type']).toBe('text/html; charset=utf-8');
+
+  test("responds to /missing_route", async () => {
+    const res = await request(app).get("/missing_route");
+    expect(res.header["content-type"]).toBe("text/html; charset=utf-8");
     expect(res.statusCode).toBe(404);
   });
 
-  // test('responds to POST /patient/bulk', async () => {
-  //   const starting_count = test_patients.data.length
+  test("responds to GET patient markers for map /", async () => {
+    patient.getPatientMarkers = jest.fn().mockReturnValue(test_patients.data);
 
-  //   const res = await request(app).post('/patient/bulk').send(test_patients.data)
-  //   expect(res.header['content-type']).toBe('text/html; charset=utf-8');
-  //   expect(res.statusCode).toBe(200);
-  // });
+    const res = await request(app).get("/patient/markers").query("ageMin=0&ageMax=115&latNE=1&latSW=2&lngNE=3&lngSW=4");
+    expect(res.header["content-type"]).toBe("application/json; charset=utf-8");
+    expect(res.statusCode).toBe(200);
+    expect(res.text).toBe(JSON.stringify(test_patients.data));
+  });
 
+  test("responds to POST /patient/bulk with and without data", async () => {
+    const starting_count = test_patients.data.length;
+    Patients.insertMany = jest.fn().mockReturnValue(test_patients.data.length);
+
+    expect(await bulk_patient_load(test_patients.data)).toBe(starting_count);
+    await expect(bulk_patient_load()).rejects.toThrowError();
+  });
 });
-
-// describe("testing Controllers", () => {});
-
-// describe("testing Models", () => {});
