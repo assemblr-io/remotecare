@@ -1,5 +1,9 @@
 # Remote Care Dashboard
 
+
+https://user-images.githubusercontent.com/95592979/160530692-3a94fc7d-bef7-429a-99e6-06c9ad20defb.mp4
+
+
 Remote care was developed over a 3 day sprint, taking data feeds from a Qld Health NoSQL backend. It is to be used by nurses providing services to remote based patients who are travelling for outpatient specialist appointments. Currently there is no way of visualising which patients are travelling the most, who is the most unwell, and the total burden of travel on remote based patients.
 
 This solution requirements included the need for an intuitive interface requiring a 5-minute stand-up to train, auth with BCrypt and salting. It could only read data.
