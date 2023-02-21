@@ -132,11 +132,12 @@ export default function Map(mapprops) {
   }
 
 
+  //"AIzaSyBimsO-5HTfzRdKwgBin2iLWaHX5ubokuk"
   return (
     <div style={{ height: "95vh" }}>
       <GoogleMapReact
         bootstrapURLKeys={{
-          key: "AIzaSyBimsO-5HTfzRdKwgBin2iLWaHX5ubokuk",
+          key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
           libraries: ["visualization"],
           
         }}

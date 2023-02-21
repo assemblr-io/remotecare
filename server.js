@@ -19,7 +19,7 @@ const app = express();
 
 //connect to mongoDB
 mongo.connect().then((res) => console.log(res));
-console.log(test_patients);
+
 //app port listener
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);

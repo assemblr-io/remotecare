@@ -4,12 +4,16 @@ const mongoose = require("mongoose"),
   Admin = mongoose.mongo.Admin;
 const ApiError = require;
 
-//mongoDB Class
+//DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7 - pre-empting this.
+mongoose.set('strictQuery', false);
+
+//mongoDB Class - not currently using environments but built in anyhow
 class MongoDB {
   constructor(env = "") {
     (this.env = env),
       (this.uri = `mongodb+srv://${process.env.REMOTEMONGO_UID}:${process.env.REMOTEMONGO_PWD}@carecluster.byivh.mongodb.net/${env}carecluster?retryWrites=true&w=majority`);
   }
+
   //connect to MongoDB Atlas Instance
   async connect() {
     try {
