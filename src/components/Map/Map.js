@@ -132,7 +132,6 @@ export default function Map(mapprops) {
   }
 
 
-  //"AIzaSyBimsO-5HTfzRdKwgBin2iLWaHX5ubokuk"
   return (
     <div style={{ height: "95vh" }}>
       <GoogleMapReact
