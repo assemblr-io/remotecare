@@ -9,7 +9,6 @@ const apiErrorHandler = require("./errors/api_error_handler");
 const test_patients = require("./db/patient_test_data");
 
 //import routes
-const indexRouter = require("./routes/index");
 const apiRouter = require("./routes/api");
 const ApiError = require("./errors/ApiError");
 const mongoSanitize = require("express-mongo-sanitize");
@@ -35,8 +34,7 @@ app.use(mongoSanitize());
 app.use(cors());
 
 //assign route handling
-app.use("/", indexRouter);
-app.use("/api", apiRouter);
+app.use("/", apiRouter);
 app.all("*", (req, res, next) => {
   next(ApiError.noResource(`Can't find ${req.originalUrl} on this Server!`));
 });
