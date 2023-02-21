@@ -6,15 +6,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Select from "../Select/Select";
 import Range from "../RangeSlider/Range";
 import IosSwitch from "../Switch/IOsSwitch";
 
 export default function SimpleGrow(props) {
   const [checked, setChecked] = useState(false);
-  const [ageRng, setAgeRng] = useState([...props.ageRange]);
   const handleChange = () => {
     setChecked((prev) => !prev);
   };

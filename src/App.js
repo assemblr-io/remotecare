@@ -2,9 +2,7 @@ import "./App.css";
 import Map from "./components/Map/Map";
 import SimpleGrow from "./components/FormControl/FormControl";
 import { useState, useRef, useEffect } from "react";
-import { AssignmentInd } from "@mui/icons-material";
 import Accordion from "./components/Accordion/Accordion";
-import Search from "./components/Search/Search";
 import UserAvatar from "./components/Avatar/Avatar";
 
 export default function App() {
